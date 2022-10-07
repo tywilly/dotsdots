@@ -1,0 +1,66 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=15
+
+
+[rofi-wttr]
+command=~/.config/i3blocks/commands/rofi-wttr/rofi-wttr
+interval=1800
+#BAR_POSITION=top
+#FONT=Monospace 10
+#LABEL=🌡️
+#LOCATION=Rochester_NY
+#ROFI_CONFIG_FILE=/dev/null
+
+[iface]
+command=~/.config/i3blocks/commands/iface/iface
+LABEL=E:
+IFACE=enp7s0
+#ADDRESS_FAMILY=inet6?
+color=#00FF00
+interval=10
+# set this to 1 to display the name of the connected WIFI interface instead of the IP address.
+display_wifi_name=0
+
+[iface]
+command=~/.config/i3blocks/commands/iface/iface
+LABEL=E:
+IFACE=enp6s0
+#ADDRESS_FAMILY=inet6?
+color=#00FF00
+interval=10
+# set this to 1 to display the name of the connected WIFI interface instead of the IP address.
+display_wifi_name=0
+
+[memory]
+command=~/.config/i3blocks/commands/memory/memory
+label=MEM 
+interval=30
+
+[cpu_usage2]
+command=~/.config/i3blocks/commands/cpu_usage/cpu_usage2
+markup=pango
+interval=persist
+#min_width=CPU 100.00%
+#REFRESH_TIME=1
+LABEL=CPU
+#WARN_PERCENT=50
+#CRIT_PERCENT=80
+#DECIMALS=2
+
+[calendar]
+command=~/.config/i3blocks/commands/calendar/calendar
+interval=1
+LABEL= 
+DATEFMT=+%a %m/%d/%Y %I:%M:%S
+SHORTFMT=+%H:%M:%S
+HEIGHT=180
+WIDTH=220

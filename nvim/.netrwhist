@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/tyler/Documents/git/TygerX/tyger-ui/src'
+let g:netrw_dirhist_8='/home/tyler/Documents/git/TygerX/tyger-ui'
+let g:netrw_dirhist_7='/home/tyler/Documents/git/TygerX/tyger-api'
+let g:netrw_dirhist_6='/home/tyler/Documents/git/TygerX/tyger-ui/src/util'
+let g:netrw_dirhist_5='/home/tyler/Documents/git/TygerX/tyger-ui/src'
+let g:netrw_dirhist_4='/home/tyler/Documents/git/TygerX/tyger-ui'
+let g:netrw_dirhist_3='/home/tyler/Documents/git/TygerX'
+let g:netrw_dirhist_2='/home/tyler/Documents/Homework/AI/Project2'
+let g:netrw_dirhist_1='/home/tyler/Documents/git/TygerX/tyger-ui/src'
