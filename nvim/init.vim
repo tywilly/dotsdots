@@ -17,28 +17,27 @@ set undofile
 set incsearch
 set hlsearch
 
+set scrolloff=10
+
 set list listchars=tab:▶▶,trail:·,extends:>
 
 set colorcolumn=90
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/site/')
 
 Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
-" Plug 'leafgarland/typescript-vim'
 Plug 'vim-utils/vim-man'
 Plug 'lyuts/vim-rtags'
-Plug 'git@github.com:kien/ctrlp.vim.git'
-" Plug 'git@github.com:Valloric/YouCompleteMe.git'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer' , { 'branch': 'main' }
+Plug 'williamboman/nvim-lsp-installer', { 'branch': 'main'}
 Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
 Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
 Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
@@ -55,13 +54,10 @@ if executable('rg')
     let g:rg_derive_root='true'
 endif
 
-let g:ctrlp_user_command = [ '.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard' ]
 let mapleader = " "
 let g:netrw_browse_split=2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
-
-let g:ctrlp_use_caching = 0
 
 set completeopt=menu,menuone,noselect
 
@@ -80,10 +76,11 @@ nnoremap <leader>pv :NERDTreeToggle<CR>
 nnoremap <leader>ps :Rg<SPACE>
 nnoremap <leader>Q :wincmd q<CR>
 nnoremap <leader>pf <cmd>Telescope find_files<CR>
-nnoremap <leader>bf <cmd>Telescope buffers<CR>
+nnoremap <leader>bb <cmd>Telescope buffers<CR>
 nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>bp :bprev<CR>
 nnoremap <leader>bd :bd<CR>
+nnoremap <leader>bf <cmd>lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <leader>+ :vertical resize +5<CR>
 nnoremap <silent> <leader>- :vertical resize -5<CR>
 
@@ -96,4 +93,5 @@ nnoremap <silent> <leader>gf <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>gF <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <leader>gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>ge <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>gR <cmd>lua vim.lsp.buf.rename()<CR>
