@@ -85,6 +85,9 @@ nnoremap <leader>bf <cmd>lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <leader>+ :vertical resize +5<CR>
 nnoremap <silent> <leader>- :vertical resize -5<CR>
 
+nnoremap <silent> <leader>to :split<CR>:terminal<CR>:horizontal resize 15<CR>
+tnoremap <Esc> <C-\><C-n>
+
 " LSP settings
 nnoremap <silent> <leader>K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader><C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
