@@ -68,12 +68,12 @@ luafile ~/.config/nvim/lua/treesitter.lua
 " Load LSP configs
 luafile ~/.config/nvim/lua/lsp.lua
 
+" General settings
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>pv :NERDTreeToggle<CR>
 nnoremap <leader>ps :Rg<SPACE>
 nnoremap <leader>Q :wincmd q<CR>
 nnoremap <leader>pf <cmd>Telescope find_files<CR>
@@ -85,6 +85,16 @@ nnoremap <leader>bf <cmd>lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <leader>+ :vertical resize +5<CR>
 nnoremap <silent> <leader>- :vertical resize -5<CR>
 
+" NERDTree settings
+
+" Open when directory is provided
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+
+nnoremap <leader>pv :NERDTreeToggle<CR>
+
+" Terminal settings
 nnoremap <silent> <leader>to :split<CR>:terminal<CR>:horizontal resize 15<CR>
 tnoremap <Esc> <C-\><C-n>
 
