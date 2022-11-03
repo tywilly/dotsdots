@@ -29,6 +29,7 @@ call plug#begin('~/.local/share/nvim/site/')
 Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
+Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
 Plug 'vim-utils/vim-man'
 Plug 'lyuts/vim-rtags'
 Plug 'mbbill/undotree'
@@ -67,6 +68,11 @@ luafile ~/.config/nvim/lua/treesitter.lua
 
 " Load LSP configs
 luafile ~/.config/nvim/lua/lsp.lua
+
+" Load Git configs
+luafile ~/.config/nvim/lua/git.lua
+
+nnoremap <leader>Gbl :Gitsigns toggle_current_line_blame<CR>
 
 " General settings
 nnoremap <leader>h :wincmd h<CR>
