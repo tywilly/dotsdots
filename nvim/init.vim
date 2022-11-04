@@ -30,6 +30,7 @@ Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
+Plug 'rmagatti/auto-session', { 'branch': 'main' }
 Plug 'vim-utils/vim-man'
 Plug 'lyuts/vim-rtags'
 Plug 'mbbill/undotree'
@@ -74,6 +75,9 @@ luafile ~/.config/nvim/lua/git.lua
 
 nnoremap <leader>Gbl :Gitsigns toggle_current_line_blame<CR>
 
+" Load autosession stuff
+luafile ~/.config/nvim/lua/autosess.lua
+
 " General settings
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -90,6 +94,9 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bf <cmd>lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <leader>+ :vertical resize +5<CR>
 nnoremap <silent> <leader>- :vertical resize -5<CR>
+nnoremap <silent> <leader><Tab> :tabn<CR>
+nnoremap <silent> <leader><S-Tab> :tabp<CR>
+nnoremap <silent> <leader>nt :tab split<CR>
 
 " NERDTree settings
 
