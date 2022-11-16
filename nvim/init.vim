@@ -84,7 +84,7 @@ nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>ps :Rg<SPACE>
+nnoremap <leader>ps <cmd>Telescope live_grep<CR>
 nnoremap <leader>Q :wincmd q<CR>
 nnoremap <leader>pf <cmd>Telescope find_files<CR>
 nnoremap <leader>bb <cmd>Telescope buffers<CR>
@@ -121,11 +121,11 @@ tnoremap <Esc> <C-\><C-n>
 " LSP settings
 nnoremap <silent> <leader>K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader><C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <leader>gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>gd <cmd>Telescope lsp_definitions<CR>
 nnoremap <silent> <leader>gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>gf <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>gF <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <leader>gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>gr <cmd>Telescope lsp_references<CR>
 nnoremap <silent> <leader>ge <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>gR <cmd>lua vim.lsp.buf.rename()<CR>
