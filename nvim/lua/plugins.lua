@@ -27,5 +27,6 @@ use {'hrsh7th/cmp-vsnip', branch = 'main' }
 use 'hrsh7th/vim-vsnip'
 use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-context'
+use 'mfussenegger/nvim-dap'
 
 end)
