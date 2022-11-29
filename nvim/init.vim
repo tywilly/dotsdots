@@ -24,33 +24,10 @@ set list listchars=tab:▶▶,trail:·,extends:>
 set colorcolumn=90
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-call plug#begin('~/.local/share/nvim/site/')
+" Load plugins
+lua require('plugins')
 
-Plug 'morhetz/gruvbox'
-Plug 'jremmen/vim-ripgrep'
-Plug 'tpope/vim-fugitive'
-Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
-Plug 'rmagatti/auto-session', { 'branch': 'main' }
-Plug 'vim-utils/vim-man'
-Plug 'lyuts/vim-rtags'
-Plug 'mbbill/undotree'
-Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/nerdtree'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer', { 'branch': 'main'}
-Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
-Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-vsnip', { 'branch': 'main' }
-Plug 'hrsh7th/vim-vsnip'
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/nvim-treesitter-context'
-
-call plug#end()
-
-colorscheme gruvbox
+colorscheme tokyonight
 set background=dark
 
 if executable('rg')
@@ -63,6 +40,9 @@ let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
 set completeopt=menu,menuone,noselect
+
+" Load lualine
+luafile ~/.config/nvim/lua/powerline.lua
 
 " Load Tree sitter config
 luafile ~/.config/nvim/lua/treesitter.lua
