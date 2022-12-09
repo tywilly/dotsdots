@@ -100,7 +100,8 @@ tnoremap <Esc> <C-\><C-n>
 
 " LSP settings
 nnoremap <silent> <leader>K <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader><C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+inoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <leader>gd <cmd>Telescope lsp_definitions<CR>
 nnoremap <silent> <leader>gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>gf <cmd>lua vim.lsp.buf.code_action()<CR>
