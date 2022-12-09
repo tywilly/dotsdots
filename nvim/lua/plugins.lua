@@ -8,7 +8,6 @@ use 'tpope/vim-fugitive'
 use {'lewis6991/gitsigns.nvim', branch = 'main' }
 use {'rmagatti/auto-session', branch = 'main' }
 use 'vim-utils/vim-man'
-use 'lyuts/vim-rtags'
 use 'mbbill/undotree'
 use {
   'nvim-lualine/lualine.nvim',
