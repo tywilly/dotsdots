@@ -10,7 +10,7 @@ export ZSH="/home/tyler/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="gentoo"
 
-ZSH_THEME="mytheme"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,7 +72,7 @@ ZSH_THEME="mytheme"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt)
+plugins=(git git-prompt zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -121,3 +121,5 @@ eval "$(pyenv init -)"
 
 
 export PATH="$HOME/.poetry/bin:$PATH"
+
+eval $(starship init zsh)
