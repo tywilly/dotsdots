@@ -85,14 +85,16 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-" NERDTree settings
+" NVIM tree settings
+
+luafile ~/.config/nvim/lua/nvimtree.lua
 
 " Open when directory is provided
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+"     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
-nnoremap <leader>pv :NERDTreeToggle<CR>
+nnoremap <leader>pv :NvimTreeToggle<CR>
 
 " Terminal settings
 nnoremap <silent> <leader>to :split<CR>:terminal<CR>:horizontal resize 15<CR>

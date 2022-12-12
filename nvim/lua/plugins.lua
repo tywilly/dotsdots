@@ -6,14 +6,20 @@ use 'wbthomason/packer.nvim'
 use {'folke/tokyonight.nvim', branch = 'main' }
 use 'tpope/vim-fugitive'
 use {'lewis6991/gitsigns.nvim', branch = 'main' }
-use {'rmagatti/auto-session', branch = 'main' }
+use {'rmagatti/auto-session'}
 use 'vim-utils/vim-man'
 use 'mbbill/undotree'
 use {
   'nvim-lualine/lualine.nvim',
   requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 }
-use 'scrooloose/nerdtree'
+use {
+  'nvim-tree/nvim-tree.lua',
+  requires = {
+    'nvim-tree/nvim-web-devicons', -- optional, for file icons
+  },
+  tag = 'nightly' -- optional, updated every week. (see issue #1193)
+}
 use 'nvim-lua/plenary.nvim'
 use 'nvim-telescope/telescope.nvim'
 use 'neovim/nvim-lspconfig'
