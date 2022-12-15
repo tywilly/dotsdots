@@ -3,7 +3,7 @@ syntax on
 set updatetime=100
 
 set noerrorbells
-set tabstop=4 softtabstop=4
+" set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
@@ -30,10 +30,6 @@ lua require('plugins')
 colorscheme tokyonight
 set background=dark
 
-if executable('rg')
-    let g:rg_derive_root='true'
-endif
-
 let mapleader = " "
 let g:netrw_browse_split=2
 let g:netrw_banner = 0
@@ -59,13 +55,15 @@ nnoremap <leader>Gbl :Gitsigns toggle_current_line_blame<CR>
 luafile ~/.config/nvim/lua/autosess.lua
 
 " General settings
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-l> :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>ps <cmd>Telescope live_grep<CR>
 nnoremap <leader>Q :wincmd q<CR>
+nnoremap <silent> <leader>\" :split<CR>
+nnoremap <silent> <leader>\| :vsplit<CR>
 nnoremap <leader>pf <cmd>Telescope find_files<CR>
 nnoremap <leader>bb <cmd>Telescope buffers<CR>
 nnoremap <leader>bn :bnext<CR>
