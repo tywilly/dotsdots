@@ -49,5 +49,6 @@ use {
 use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-context'
 use 'mfussenegger/nvim-dap'
+use 'christoomey/vim-tmux-navigator'
 
 end)

@@ -3,8 +3,22 @@
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # nvim
+
+# Install package manager
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+# Link config files
 ln -s ${BASEDIR}/nvim ~/.config
 ln -s ${BASEDIR}/vim ~/.vim
+
+# tmux
+
+# Install package manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# Link config file
+ln -s ${BASEDIR}/.tmux.conf ~/.tmux.conf
 
 # zsh
 ln -s ${BASEDIR}/.zshrc ~/.zshrc
