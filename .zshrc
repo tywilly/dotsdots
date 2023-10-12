@@ -111,6 +111,8 @@ alias vim='nvim'
 export PYENV_ROOT="$HOME/.pyenv"
 
 export PATH="$HOME/go/bin:$PYENV_ROOT/shims:$PATH"
+export LIBVA_DRIVER_NAME="nvidia"
+export MOZ_DRM_DEVICE="/dev/dri/card0"
 
 eval "$(pyenv init -)"
 

@@ -1,7 +1,7 @@
 
 return require('packer').startup(function(use)
 
---use 'morhetz/gruvbox'
+--use 'morhetz/gruvb
 use 'wbthomason/packer.nvim'
 use {'folke/tokyonight.nvim', branch = 'main' }
 use 'tpope/vim-fugitive'
@@ -50,5 +50,8 @@ use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-context'
 use 'mfussenegger/nvim-dap'
 use 'christoomey/vim-tmux-navigator'
+use 'romgrk/barbar.nvim'
+
+use 'nvim-tree/nvim-web-devicons'
 
 end)

@@ -56,6 +56,11 @@ LABEL=CPU
 #CRIT_PERCENT=80
 #DECIMALS=2
 
+[volume-pulseaudio]
+command=~/.config/i3blocks/commands/volume-pulseaudio/volume-pulseaudio
+interval=once
+signal=1
+
 [calendar]
 command=~/.config/i3blocks/commands/calendar/calendar
 interval=1
