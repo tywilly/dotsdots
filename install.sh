@@ -59,3 +59,9 @@ ln -s ${BASEDIR}/alacritty ~/.config
 ln -s ${BASEDIR}/kitty ~/.config
 
 # ---------------------
+# Hyprland
+# ---------------------
+
+ln -s ${BASEDIR}/hypr ~/.config
+
+#----------------------
