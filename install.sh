@@ -65,3 +65,9 @@ ln -s ${BASEDIR}/kitty ~/.config
 ln -s ${BASEDIR}/hypr ~/.config
 
 #----------------------
+# Waybar
+# ---------------------
+
+ln -s ${BASEDIR}/waybar ~/.config
+
+#----------------------
