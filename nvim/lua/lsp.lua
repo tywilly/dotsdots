@@ -5,7 +5,7 @@ lsp.preset('recommended')
 local cmp = require('cmp')
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<cr>'] = cmp.mapping.confirm(( select = true )),
+    ['<cr>'] = cmp.mapping.confirm({ select = true }),
 })
 
 lsp.setup_nvim_cmp({
