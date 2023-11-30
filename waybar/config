@@ -89,7 +89,7 @@
         "spacing": 0
     },
     "clock": {
-        "format": "{:%H:%M}  ",
+        "format": "{:%I:%M}  ",
         "format-alt": "{:%A, %B %d, %Y (%R)}  ",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
@@ -153,7 +153,7 @@
         "bat": "BAT2"
     },
     "network": {
-        "interface": "enp6s0", // (Optional) To force the use of this interface
+        //"interface": "enp6s0", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
