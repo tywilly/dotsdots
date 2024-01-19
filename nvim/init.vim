@@ -55,6 +55,9 @@ nnoremap <leader>Gbl :Gitsigns toggle_current_line_blame<CR>
 luafile ~/.config/nvim/lua/autosess.lua
 
 " General settings
+
+nnoremap <C-c> "+y
+vnoremap <C-c> "+y
 nnoremap <C-h> :wincmd h<CR>
 nnoremap <C-j> :wincmd j<CR>
 nnoremap <C-k> :wincmd k<CR>

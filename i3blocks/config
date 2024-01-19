@@ -45,16 +45,23 @@ command=~/.config/i3blocks/commands/memory/memory
 label=MEM 
 interval=30
 
-[cpu_usage2]
-command=~/.config/i3blocks/commands/cpu_usage/cpu_usage2
+[cpu_util_detailed]
+command=~/.config/i3blocks/commands/cpu_util_detailed/cpu_util_detailed
+label=CPU
 markup=pango
-interval=persist
-#min_width=CPU 100.00%
-#REFRESH_TIME=1
-LABEL=CPU
-#WARN_PERCENT=50
-#CRIT_PERCENT=80
-#DECIMALS=2
+interval=1
+stats=usr sys iowait total
+
+#[cpu_usage2]
+#command=~/.config/i3blocks/commands/cpu_usage/cpu_usage2
+#markup=pango
+#interval=persist
+##min_width=CPU 100.00%
+##REFRESH_TIME=1
+#LABEL=CPU
+##WARN_PERCENT=50
+##CRIT_PERCENT=80
+##DECIMALS=2
 
 [volume-pulseaudio]
 command=~/.config/i3blocks/commands/volume-pulseaudio/volume-pulseaudio
