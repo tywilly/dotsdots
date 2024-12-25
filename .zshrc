@@ -72,7 +72,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git git-prompt zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,16 +108,15 @@ alias ls='lsd'
 alias vim='nvim'
 #alias sudo='doas'
 
-export PYENV_ROOT="$HOME/.pyenv"
+#export LIBVA_DRIVER_NAME="nvidia"
+#export MOZ_DRM_DEVICE="/dev/dri/card0"
 
-export PATH="$HOME/go/bin:$PYENV_ROOT/shims:$PATH"
-export LIBVA_DRIVER_NAME="nvidia"
-export MOZ_DRM_DEVICE="/dev/dri/card0"
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    export MOZ_ENABLE_WAYLAND=1
+fi
 
-eval "$(pyenv init -)"
-
-
-
-export PATH="$HOME/.poetry/bin:$PATH"
+export MOZ_DISABLE_RDD_SANDBOX=1
+export LIBVA_DRIVER_NAME=nvidia
+export VDPAU_DRIVER=nvidia
 
 eval $(starship init zsh)
