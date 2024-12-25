@@ -1,13 +1,13 @@
 {
     "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
+    "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 34, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "idle_inhibitor", "pulseaudio", "backlight", "network", "custom/updates"],
+    "modules-left": ["hyprland/workspaces", "idle_inhibitor", "pulseaudio", "network", "custom/updates"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["cpu", "memory", "temperature", "battery", "tray", "clock"],
+    "modules-right": ["cpu", "memory", "temperature", "tray", "clock"],
     // Modules configuration
      "hyprland/workspaces": {
          "disable-scroll": true,
@@ -89,8 +89,8 @@
         "spacing": 0
     },
     "clock": {
-        "format": "{:%I:%M}  ",
-        "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+        "format": "{:%H:%M}  ",
+        "format-alt": "{:%A, %B %d, %Y (%R)}  ",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
                     "mode"          : "year",
@@ -155,9 +155,9 @@
     "network": {
         //"interface": "enp6s0", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-ethernet": "{ipaddr}/{cidr}",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
