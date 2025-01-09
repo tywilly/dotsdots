@@ -72,7 +72,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git git-prompt)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,6 +107,10 @@ source $ZSH/oh-my-zsh.sh
 alias ls='lsd'
 alias vim='nvim'
 #alias sudo='doas'
+#
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #export LIBVA_DRIVER_NAME="nvidia"
 #export MOZ_DRM_DEVICE="/dev/dri/card0"
