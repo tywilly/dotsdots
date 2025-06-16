@@ -122,5 +122,6 @@ fi
 export MOZ_DISABLE_RDD_SANDBOX=1
 export LIBVA_DRIVER_NAME=nvidia
 export VDPAU_DRIVER=nvidia
+export EDITOR="nvim"
 
 eval $(starship init zsh)
