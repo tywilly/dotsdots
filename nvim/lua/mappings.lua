@@ -35,7 +35,7 @@ map("n", "<tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "buffer goto nex" })
 
 map("n", "<S-tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "buffer goto prev" })
 
-map("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "buffer close" })
+map("n", "<leader>x", "<cmd>bd<CR>", { desc = "buffer close" })
 
 -- Comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
@@ -43,7 +43,7 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
 -- nvimtree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
-map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
+map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 
 -- telescope
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
@@ -72,7 +72,7 @@ map("n", "<leader>tv", "<Cmd>ToggleTerm direction=vertical name=vert<CR>", {desc
 
 map("n", "<leader>tf", "<Cmd>ToggleTerm direction=float name=float<CR>", {desc = "Open new floating terminal"})
 
-map("n", "<leader>tt", "<Cmd>ToggleTerm direction=tab<CR>", {desc = "Open new floating terminal"})
+map("n", "<leader>tt", "<Cmd>ToggleTerm direction=tab<CR>", {desc = "Open new tab terminal"})
 
 -- whichkey
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })

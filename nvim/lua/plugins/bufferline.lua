@@ -21,8 +21,8 @@ return   {
     right_trunc_marker = "",
     max_name_length = 18,
     max_prefix_length = 15,
-    tab_size = 10,
-    diagnostics = false,
+    tab_size = 18,
+    diagnostics = "nvim_lsp",
     custom_filter = function(bufnr)
       -- if the result is false, this buffer will be shown, otherwise, this
       -- buffer will be hidden.
@@ -47,6 +47,16 @@ return   {
     enforce_regular_tabs = false,
     always_show_bufferline = true,
     sort_by = "id",
+    offsets = {
+      {
+	filetype = "NvimTree",
+	text = "File Explorer",
+	text_align = "center",
+	separator = true
+      }
+    },
+    color_icons = true,
+    
   },
 }
 
