@@ -39,6 +39,9 @@ exec --no-startup-id nm-applet
 
 #exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/khonshu.png
 
+# Start Notification Client
+exec --no-startup-id dunst
+
 #exec_always --no-startup-id /home/tyler/.config/i3/comptonlaunch.sh
 
 # set desktop background with custom effect

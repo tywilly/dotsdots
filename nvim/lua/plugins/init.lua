@@ -1,36 +1,42 @@
 return {
-  {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
-  },
+	-- add dracula
+  	{ "Mofiqul/dracula.nvim",
+	config = function()
+		vim.cmd[[colorscheme dracula]]
+	end,
+	},
+	{
+		'nvim-telescope/telescope.nvim', tag = '0.1.8',
+		dependencies = { 'nvim-lua/plenary.nvim' }
+	},
 
-  -- These are some examples, uncomment them if you want to see them work!
   {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lspconfig"
+    "folke/which-key.nvim",
+    lazy = false,
+    keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+    cmd = "WhichKey",
+    opts = function()
+      return {}
     end,
   },
 
-  -- For Flutter
+  -- formatting!
   {
-    'nvim-flutter/flutter-tools.nvim',
-    lazy = false,
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        'stevearc/dressing.nvim', -- optional for vim.ui.select
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = { lua = { "stylua" } },
     },
-    config = true,
-  }
+  },
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+-- lsp stuff
+{
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+        { "mason-org/mason.nvim", opts = {} },
+        {"neovim/nvim-lspconfig", config = function() require("config.lspconfig").defaults() end,}
+    },
+},
+-- Terminal
+  {'akinsho/toggleterm.nvim', version = "*", config = true}
 }
