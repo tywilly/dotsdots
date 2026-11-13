@@ -71,3 +71,9 @@ ln -s ${BASEDIR}/hypr ~/.config
 ln -s ${BASEDIR}/waybar ~/.config
 
 #----------------------
+# Quickshell
+# ---------------------
+
+ln -s ${BASEDIR}/quickshell ~/.config
+
+#----------------------

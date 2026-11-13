@@ -32,7 +32,7 @@ hl.monitor({
 -- Laptop
 hl.monitor({
     output = "eDP-1",
-    mode = "1920x1200@60",
+    mode = "1920x1080@60",
     position = "0x0",
     scale = "1.25",
 })
@@ -242,7 +242,7 @@ hl.config({
 })
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("waybar")
+    hl.exec_cmd("quickshell")
     hl.exec_cmd("dunst")
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("hyprpaper")
