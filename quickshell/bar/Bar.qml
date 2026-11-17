@@ -13,6 +13,8 @@ Scope {
   property string font: "Hack Nerd Font"
   property bool barVisible: true
 
+  KeybindingHelp { id: keybindingHelp; theme: root.theme; fontFamily: root.font }
+
   // MPRIS active player
   property var activePlayer: {
     const players = Mpris.players.values;
@@ -82,6 +84,7 @@ Scope {
     model: Quickshell.screens
 
     PanelWindow {
+      id: barWindow
       required property var modelData
       screen: modelData
       visible: root.barVisible
@@ -92,7 +95,7 @@ Scope {
         right: true
       }
 
-      implicitHeight: 32
+      implicitHeight: 36
       color: root.theme.bgBase
 
       Item {
@@ -107,12 +110,48 @@ Scope {
           anchors.verticalCenter: parent.verticalCenter
           spacing: 8
 
+          Rectangle {
+            width: helpLabel.implicitWidth + 18
+            height: 28
+            radius: 12
+            color: helpMouse.containsMouse ? root.theme.bgHover : root.theme.bgSurface
+            Accessible.role: Accessible.Button
+            Accessible.name: "Show Hyprland keybindings"
+            Text {
+              id: helpLabel
+              anchors.centerIn: parent
+              text: "Help"
+              color: root.theme.textPrimary
+              font.family: root.font
+              font.pixelSize: 13
+            }
+            MouseArea {
+              id: helpMouse
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: keybindingHelp.open()
+            }
+          }
+
           // Time
           Rectangle {
-            height: 24
+            id: clockWidget
+            height: 28
             width: timeDate.width + 16
             radius: 12
             color: root.theme.bgSurface
+
+            HoverHandler { id: clockHover }
+
+            // Keep the calendar open while moving from the clock into the popup.
+            CalendarPopup {
+              anchor.item: clockWidget
+              theme: root.theme
+              fontFamily: root.font
+              today: Time.date
+              triggerHovered: clockHover.hovered
+            }
 
             Row {
               id: timeDate
@@ -123,7 +162,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter
                 text: ""
                 color: root.theme.accentPrimary
-                font.pixelSize: 14
+                font.pixelSize: 16
                 font.family: root.font
               }
 
@@ -131,7 +170,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter
                 text: Time.timeString
                 color: root.theme.textPrimary
-                font.pixelSize: 12
+                font.pixelSize: 14
                 font.family: root.font
               }
 
@@ -139,7 +178,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter
                 text: Time.dateString
                 color: root.theme.textSecondary
-                font.pixelSize: 12
+                font.pixelSize: 14
                 font.family: root.font
               }
             }
@@ -156,14 +195,15 @@ Scope {
                 id: wsPill
                 required property var modelData
                 property bool urgentBlink: false
+                visible: modelData.monitor !== null && modelData.monitor.name === barWindow.screen.name
 
                 Accessible.role: Accessible.Button
-                Accessible.name: "Workspace " + modelData.id + (modelData.focused ? ", active" : "") + (modelData.urgent ? ", urgent" : "")
+                Accessible.name: "Workspace " + modelData.id + (modelData.active ? ", active" : "") + (modelData.urgent ? ", urgent" : "")
 
-                width: modelData.focused ? 32 : 24
-                height: 24
+                width: modelData.active ? 32 : 24
+                height: 28
                 radius: 12
-                color: modelData.focused ? root.theme.accentPrimary :
+                color: modelData.active ? root.theme.accentPrimary :
                        modelData.urgent && urgentBlink ? root.theme.accentRed : root.theme.bgSurface
 
                 Behavior on color {
@@ -172,7 +212,7 @@ Scope {
 
                 SequentialAnimation {
                   loops: Animation.Infinite
-                  running: wsPill.modelData.urgent && !wsPill.modelData.focused
+                  running: wsPill.visible && wsPill.modelData.urgent && !wsPill.modelData.active
 
                   PropertyAction { target: wsPill; property: "urgentBlink"; value: true }
                   PauseAnimation { duration: 500 }
@@ -185,10 +225,10 @@ Scope {
                 Text {
                   anchors.centerIn: parent
                   text: wsPill.modelData.id
-                  color: wsPill.modelData.focused ? root.theme.bgBase : root.theme.textPrimary
-                  font.pixelSize: 11
+                  color: wsPill.modelData.active ? root.theme.bgBase : root.theme.textPrimary
+                  font.pixelSize: 13
                   font.family: root.font
-                  font.bold: wsPill.modelData.focused
+                  font.bold: wsPill.modelData.active
                 }
 
                 MouseArea {
@@ -205,7 +245,7 @@ Scope {
 
           // Now Playing
           Rectangle {
-            height: 24
+            height: 28
             width: nowPlayingContent.width + 16
             radius: 12
             color: root.theme.bgSurface
@@ -230,7 +270,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter
                 text: root.activePlayer && root.activePlayer.isPlaying ? "󰐊" : "󰏤"
                 color: root.theme.accentPrimary
-                font.pixelSize: 14
+                font.pixelSize: 16
                 font.family: root.font
               }
 
@@ -243,7 +283,7 @@ Scope {
                   return artist ? artist + " - " + title : title;
                 }
                 color: root.theme.textPrimary
-                font.pixelSize: 11
+                font.pixelSize: 13
                 font.family: root.font
                 elide: Text.ElideRight
                 width: Math.min(implicitWidth, 200)
@@ -269,7 +309,7 @@ Scope {
             Accessible.name: "Active window: " + text
             text: Hyprland.activeToplevel ? Hyprland.activeToplevel.title : ""
             color: root.theme.textPrimary
-            font.pixelSize: 13
+            font.pixelSize: 15
             font.family: root.font
             elide: Text.ElideRight
             width: Math.min(implicitWidth, parent.width)
@@ -286,7 +326,7 @@ Scope {
 
           // Volume
           Rectangle {
-            height: 24
+            height: 28
             width: volContent.width + 12
             radius: 12
             color: root.theme.bgSurface
@@ -318,7 +358,7 @@ Scope {
                   if (!sink || !sink.audio || sink.audio.muted) return root.theme.textMuted;
                   return root.theme.accentPrimary;
                 }
-                font.pixelSize: 14
+                font.pixelSize: 16
                 font.family: root.font
               }
 
@@ -331,7 +371,7 @@ Scope {
                   return Math.round(sink.audio.volume * 100) + "%";
                 }
                 color: root.theme.textPrimary
-                font.pixelSize: 11
+                font.pixelSize: 13
                 font.family: root.font
               }
             }
@@ -355,7 +395,7 @@ Scope {
 
           // Brightness
           Rectangle {
-            height: 24
+            height: 28
             width: brightContent.width + 12
             radius: 12
             color: root.theme.bgSurface
@@ -373,7 +413,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter
                 text: "󰃠"
                 color: root.theme.accentOrange
-                font.pixelSize: 14
+                font.pixelSize: 16
                 font.family: root.font
               }
 
@@ -381,7 +421,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter
                 text: Math.round(root.brightnessValue * 100) + "%"
                 color: root.theme.textPrimary
-                font.pixelSize: 11
+                font.pixelSize: 13
                 font.family: root.font
               }
             }
@@ -413,12 +453,143 @@ Scope {
 
             // CPU
             Rectangle {
-              height: 24
+              id: cpuWidget
+              height: 28
               width: cpuContent.width + 12
               radius: 12
               color: root.theme.bgSurface
               Accessible.role: Accessible.StaticText
               Accessible.name: "CPU: " + SystemInfo.cpuUsage
+
+              HoverHandler { id: cpuHover }
+
+              PopupWindow {
+                id: cpuPopup
+                property bool popupHovered: false
+                anchor.item: cpuWidget
+                anchor.edges: Edges.Bottom
+                anchor.gravity: Edges.Bottom
+                anchor.adjustment: PopupAdjustment.Flip | PopupAdjustment.Slide
+                implicitWidth: 480
+                implicitHeight: Math.min(500, cpuDetails.implicitHeight + 24)
+                color: root.theme.bgBase
+                visible: false
+
+                onPopupHoveredChanged: {
+                  if (popupHovered) cpuCloseTimer.stop()
+                  else cpuCloseTimer.restart()
+                }
+
+                Connections {
+                  target: cpuHover
+                  function onHoveredChanged() {
+                    if (cpuHover.hovered) {
+                      cpuCloseTimer.stop()
+                      cpuPopup.visible = true
+                    } else cpuCloseTimer.restart()
+                  }
+                }
+
+                Timer {
+                  id: cpuCloseTimer
+                  interval: 300
+                  onTriggered: {
+                    if (!cpuHover.hovered && !cpuPopup.popupHovered) cpuPopup.visible = false
+                  }
+                }
+
+                Rectangle {
+                  anchors.fill: parent
+                  color: root.theme.bgBase
+                  border.color: root.theme.bgBorder
+                  radius: 8
+                  HoverHandler { onHoveredChanged: cpuPopup.popupHovered = hovered }
+
+                  Flickable {
+                    anchors.fill: parent
+                    anchors.margins: 12
+                    contentHeight: cpuDetails.implicitHeight
+                    clip: true
+                    boundsBehavior: Flickable.StopAtBounds
+
+                    Column {
+                      id: cpuDetails
+                      width: parent.width
+                      spacing: 7
+
+                      Text {
+                        text: "CPU utilization"
+                        color: root.theme.textPrimary
+                        font.family: root.font
+                        font.pixelSize: 14
+                        font.bold: true
+                      }
+                      Text {
+                        text: "Load (1 / 5 / 15 min): " + SystemInfo.cpuLoad
+                        color: root.theme.textSecondary
+                        font.family: root.font
+                        font.pixelSize: 11
+                      }
+
+                      Grid {
+                        width: cpuDetails.width
+                        columns: 2
+                        columnSpacing: 12
+                        rowSpacing: 7
+
+                        Repeater {
+                          model: SystemInfo.cpuCores
+                          delegate: Row {
+                          id: cpuCoreRow
+                          required property var modelData
+                          width: (cpuDetails.width - 12) / 2
+                          height: 18
+                          spacing: 6
+
+                          Text {
+                            width: 60
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "CPU " + parent.modelData.name
+                            color: root.theme.textPrimary
+                            font.family: root.font
+                            font.pixelSize: 11
+                          }
+                          Rectangle {
+                            width: Math.max(0, cpuCoreRow.width - 110)
+                            height: 8
+                            radius: 4
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: root.theme.bgSelected
+                            Rectangle {
+                              width: parent.width * (modelData.usage ?? 0) / 100
+                              height: parent.height
+                              radius: parent.radius
+                              color: root.theme.accentPrimary
+                            }
+                          }
+                          Text {
+                            width: 38
+                            anchors.verticalCenter: parent.verticalCenter
+                            horizontalAlignment: Text.AlignRight
+                            text: parent.modelData.usage === null ? "–" : Math.round(parent.modelData.usage) + "%"
+                            color: root.theme.textSecondary
+                            font.family: root.font
+                            font.pixelSize: 11
+                          }
+                        }
+                        }
+                      }
+                      Text {
+                        visible: SystemInfo.cpuCores.length === 0
+                        text: "CPU readings unavailable"
+                        color: root.theme.textMuted
+                        font.family: root.font
+                        font.pixelSize: 11
+                      }
+                    }
+                  }
+                }
+              }
 
               Row {
                 id: cpuContent
@@ -429,14 +600,14 @@ Scope {
                   anchors.verticalCenter: parent.verticalCenter
                   text: "󰻠"
                   color: root.theme.accentOrange
-                  font.pixelSize: 14
+                  font.pixelSize: 16
                   font.family: root.font
                 }
                 Text {
                   anchors.verticalCenter: parent.verticalCenter
                   text: SystemInfo.cpuUsage
                   color: root.theme.textPrimary
-                  font.pixelSize: 11
+                  font.pixelSize: 13
                   font.family: root.font
                 }
               }
@@ -444,7 +615,7 @@ Scope {
 
 	    // Memory
       	    Rectangle {
-	      height: 24
+	      height: 28
 	      width: memContent.width + 12
 	      radius: 12
 	      color: root.theme.bgSurface
@@ -460,14 +631,14 @@ Scope {
 		  anchors.verticalCenter: parent.verticalCenter
 		  text: ": "
 		  color: root.theme.accentOrange
-		  font.pixelSize: 14
+		  font.pixelSize: 16
 		  font.family: root.font
 	  	}
 	  	Text {
 	    	  anchors.verticalCenter: parent.verticalCenter
 	    	  text: SystemInfo.memoryUsage
 	    	  color: root.theme.textPrimary
-	    	  font.pixelSize: 11
+                  font.pixelSize: 13
 	    	  font.family: root.font
 	  	}
 	      }
@@ -475,13 +646,13 @@ Scope {
 
             // Network
             Rectangle {
-              height: 24
+              height: 28
               width: netContent.width + 12
               radius: 12
               color: root.theme.bgSurface
               Accessible.role: Accessible.StaticText
               Accessible.name: {
-                if (SystemInfo.networkType === "ethernet") return "Network: Ethernet"
+                if (SystemInfo.networkType === "ethernet") return "Network: Ethernet " + SystemInfo.networkInfo
                 if (SystemInfo.networkType === "wifi") return "Network: WiFi " + SystemInfo.networkInfo
                 return "Network: Disconnected"
               }
@@ -499,14 +670,14 @@ Scope {
                     return "󰖪"
                   }
                   color: SystemInfo.networkType === "disconnected" ? root.theme.textMuted : root.theme.accentGreen
-                  font.pixelSize: 14
+                  font.pixelSize: 16
                   font.family: root.font
                 }
                 Text {
                   anchors.verticalCenter: parent.verticalCenter
                   text: SystemInfo.networkInfo
                   color: root.theme.textPrimary
-                  font.pixelSize: 11
+                  font.pixelSize: 13
                   font.family: root.font
                 }
               }
@@ -514,7 +685,8 @@ Scope {
 
             // Battery
             Rectangle {
-              height: 24
+              visible: SystemInfo.batteryPresent
+              height: 28
               width: battContent.width + 12
               radius: 12
               color: root.theme.bgSurface
@@ -530,14 +702,14 @@ Scope {
                   anchors.verticalCenter: parent.verticalCenter
                   text: SystemInfo.batteryIcon
                   color: sysInfo.batteryColor
-                  font.pixelSize: 14
+                  font.pixelSize: 16
                   font.family: root.font
                 }
                 Text {
                   anchors.verticalCenter: parent.verticalCenter
                   text: SystemInfo.batteryLevel
                   color: root.theme.textPrimary
-                  font.pixelSize: 11
+                  font.pixelSize: 13
                   font.family: root.font
                 }
               }
@@ -545,12 +717,39 @@ Scope {
 
             // Temperature
             Rectangle {
-              height: 24
+              id: temperatureWidget
+              height: 28
               width: tempContent.width + 12
               radius: 12
               color: root.theme.bgSurface
               Accessible.role: Accessible.StaticText
               Accessible.name: "Temperature: " + SystemInfo.temperature
+
+              HoverHandler { id: temperatureHover }
+
+              PopupWindow {
+                anchor.item: temperatureWidget
+                anchor.edges: Edges.Bottom
+                anchor.gravity: Edges.Bottom
+                anchor.adjustment: PopupAdjustment.Flip | PopupAdjustment.Slide
+                visible: temperatureHover.hovered
+                implicitWidth: Math.min(420, Math.max(180, sensorText.implicitWidth + 24))
+                implicitHeight: sensorText.implicitHeight + 20
+                color: root.theme.bgSurface
+
+                Text {
+                  id: sensorText
+                  anchors.fill: parent
+                  anchors.margins: 10
+                  text: SystemInfo.temperatureSensors.length
+                    ? SystemInfo.temperatureSensors.map(r => r.chip + " · " + r.label + ": " + r.value.toFixed(1) + "°C").join("\n")
+                    : "No temperature sensors available"
+                  color: root.theme.textPrimary
+                  font.pixelSize: 13
+                  font.family: root.font
+                  elide: Text.ElideRight
+                }
+              }
 
               Row {
                 id: tempContent
@@ -561,14 +760,14 @@ Scope {
                   anchors.verticalCenter: parent.verticalCenter
                   text: "󰔏"
                   color: root.theme.accentRed
-                  font.pixelSize: 14
+                  font.pixelSize: 16
                   font.family: root.font
                 }
                 Text {
                   anchors.verticalCenter: parent.verticalCenter
                   text: SystemInfo.temperature
                   color: root.theme.textPrimary
-                  font.pixelSize: 11
+                  font.pixelSize: 13
                   font.family: root.font
                 }
               }

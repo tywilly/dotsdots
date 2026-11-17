@@ -19,7 +19,7 @@ https://github.com/user-attachments/assets/55c47c05-34b6-402c-aea7-42a369b86828
 
 | Module | What it does |
 |--------|-------------|
-| **Bar** | clock, workspaces, active window title, volume, brightness, network, battery, system tray, now-playing indicator |
+| **Bar** | clock, workspaces, active window title, volume, brightness, network, battery, system tray, now-playing indicator, and searchable Hyprland keybinding help |
 | **App Launcher** | rofi drun-style application launcher |
 | **Notifications** | dunst-style notification daemon with popups |
 | **OSD** | on-screen display for volume and brightness changes, auto-hides |
@@ -27,6 +27,8 @@ https://github.com/user-attachments/assets/55c47c05-34b6-402c-aea7-42a369b86828
 | **Wallpaper Manager** | grid picker for wallpapers, preview, supports hyprpaper and swww |
 | **Monitor Manager** | visual `hyprctl` front-end for arranging, scaling, rotating, mirroring, and disabling displays |
 | **Caffeine Toggle** | keeps the screen from locking or dimming while it's on - a corner badge you switch on for stretches where you're reading more than typing |
+
+Click **Help** in the bar or press **Super + Shift + Space** to search the active Hyprland keybindings. The popup can also be opened with `qs ipc call help show` or toggled with `qs ipc call help toggle`; press Escape or click outside to close it. Bindings without a description show their dispatcher and arguments as reported by Hyprland.
 
 ## prerequisites
 
