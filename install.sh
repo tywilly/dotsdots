@@ -1,79 +1,71 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# ---------------------
-# nvim
-# ---------------------
+set -euo pipefail
 
-# Install package manager
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+BASEDIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+dry_run=false
 
-# Link config files
-ln -s ${BASEDIR}/nvim ~/.config
+usage() {
+    printf 'Usage: %s [--dry-run] [--help]\n' "${0##*/}"
+}
 
-# ---------------------
-# tmux
-# ---------------------
+for arg in "$@"; do
+    case "$arg" in
+        --dry-run) dry_run=true ;;
+        -h|--help) usage; exit 0 ;;
+        *) usage >&2; printf 'Unknown option: %s\n' "$arg" >&2; exit 2 ;;
+    esac
+done
 
-# Install package manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+run() {
+    if "$dry_run"; then
+        printf 'Would run:'
+        printf ' %q' "$@"
+        printf '\n'
+    else
+        "$@"
+    fi
+}
 
-# Link config file
-ln -s ${BASEDIR}/.tmux.conf ~/.tmux.config
+link_config() {
+    local source=$1 destination=$2
+    if [[ -L "$destination" && "$(readlink -- "$destination")" == "$source" ]]; then
+        printf 'Already linked: %s\n' "$destination"
+    elif [[ -e "$destination" || -L "$destination" ]]; then
+        printf 'Conflict: %s already exists; left unchanged\n' "$destination" >&2
+        conflicts=$((conflicts + 1))
+    else
+        run mkdir -p -- "$(dirname -- "$destination")"
+        run ln -s -- "$source" "$destination"
+    fi
+}
 
-# ---------------------
-# zsh
-# ---------------------
+clone_if_missing() {
+    local url=$1 destination=$2
+    shift 2
+    if [[ -d "$destination/.git" ]]; then
+        printf 'Already installed: %s\n' "$destination"
+    elif [[ -e "$destination" || -L "$destination" ]]; then
+        printf 'Conflict: %s already exists; left unchanged\n' "$destination" >&2
+        conflicts=$((conflicts + 1))
+    else
+        run mkdir -p -- "$(dirname -- "$destination")"
+        run git clone "$@" -- "$url" "$destination"
+    fi
+}
 
-ln -s ${BASEDIR}/.zshrc ~/.zshrc
+conflicts=0
+clone_if_missing https://github.com/wbthomason/packer.nvim \
+    "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" --depth 1
+clone_if_missing https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 
-# ---------------------
-# i3
-# ---------------------
+link_config "$BASEDIR/.tmux.conf" "$HOME/.tmux.config"
+link_config "$BASEDIR/.zshrc" "$HOME/.zshrc"
+for config in nvim i3 i3blocks rofi alacritty kitty hypr waybar quickshell; do
+    link_config "$BASEDIR/$config" "$HOME/.config/$config"
+done
 
-ln -s ${BASEDIR}/i3 ~/.config
-
-# ---------------------
-# i3blocks
-# ---------------------
-
-ln -s ${BASEDIR}/i3blocks ~/.config
-
-# ---------------------
-# rofi
-# ---------------------
-
-ln -s ${BASEDIR}/rofi ~/.config
-
-# ---------------------
-# alacritty
-# ---------------------
-
-ln -s ${BASEDIR}/alacritty ~/.config
-
-# ---------------------
-# kitty
-# ---------------------
-
-ln -s ${BASEDIR}/kitty ~/.config
-
-# ---------------------
-# Hyprland
-# ---------------------
-
-ln -s ${BASEDIR}/hypr ~/.config
-
-#----------------------
-# Waybar
-# ---------------------
-
-ln -s ${BASEDIR}/waybar ~/.config
-
-#----------------------
-# Quickshell
-# ---------------------
-
-ln -s ${BASEDIR}/quickshell ~/.config
-
-#----------------------
+if (( conflicts > 0 )); then
+    printf '%d conflict(s) require attention. Move or back up those paths and rerun.\n' "$conflicts" >&2
+    exit 1
+fi

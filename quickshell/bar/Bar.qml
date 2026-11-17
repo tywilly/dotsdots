@@ -440,7 +440,38 @@ Scope {
                   font.family: root.font
                 }
               }
-            }
+      	    }
+
+	    // Memory
+      	    Rectangle {
+	      height: 24
+	      width: memContent.width + 12
+	      radius: 12
+	      color: root.theme.bgSurface
+	      Accessible.role: Accessible.StaticText
+	      Accessible.name: "MEM: " + SystemInfo.memoryUsage
+
+	      Row {
+		id: memContent
+		anchors.centerIn: parent
+		spacing: 6
+
+		Text {
+		  anchors.verticalCenter: parent.verticalCenter
+		  text: ": "
+		  color: root.theme.accentOrange
+		  font.pixelSize: 14
+		  font.family: root.font
+	  	}
+	  	Text {
+	    	  anchors.verticalCenter: parent.verticalCenter
+	    	  text: SystemInfo.memoryUsage
+	    	  color: root.theme.textPrimary
+	    	  font.pixelSize: 11
+	    	  font.family: root.font
+	  	}
+	      }
+	    }
 
             // Network
             Rectangle {

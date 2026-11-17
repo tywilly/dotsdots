@@ -9,7 +9,7 @@ Singleton {
 
   property list<string> wallpapers: []
   property string currentWallpaper: ""
-  property string backend: "awww"
+  property string backend: "hyprpaper"
 
   // Scan wallpaper directories
   Process {
